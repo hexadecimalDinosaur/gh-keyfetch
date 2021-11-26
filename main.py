@@ -34,6 +34,9 @@ class Handler:
         gpg_keys = gpg_request.json()
         ssh_keys = ssh_request.json()
 
+        if len(gpg_keys) == 0 and len(ssh_keys) == 0:
+            keybuffer.set_text("The user " + user + " has no SSH or GPG keys on their GitHub account")
+
         for key in ssh_keys:
             keyListStore.append(["ssh: "+str(key["id"])])
 
