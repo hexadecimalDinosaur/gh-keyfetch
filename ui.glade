@@ -5,14 +5,9 @@
   <object class="GtkTextBuffer" id="key_textbuffer"/>
   <object class="GtkListStore" id="liststore1">
     <columns>
-      <!-- column-name gchararray0 -->
+      <!-- column-name Name -->
       <column type="gchararray"/>
     </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">Key Name</col>
-      </row>
-    </data>
   </object>
   <object class="GtkWindow" id="window1">
     <property name="can-focus">False</property>
@@ -47,8 +42,21 @@
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="model">liststore1</property>
+                <property name="search-column">0</property>
+                <signal name="cursor-changed" handler="key_tree_cursor_changed" swapped="no"/>
                 <child internal-child="selection">
                   <object class="GtkTreeSelection"/>
+                </child>
+                <child>
+                  <object class="GtkTreeViewColumn">
+                    <property name="title" translatable="yes">Name</property>
+                    <child>
+                      <object class="GtkCellRendererText"/>
+                      <attributes>
+                        <attribute name="text">0</attribute>
+                      </attributes>
+                    </child>
+                  </object>
                 </child>
               </object>
               <packing>
@@ -64,14 +72,21 @@
           </packing>
         </child>
         <child>
-          <object class="GtkTextView" id="key_textview">
+          <object class="GtkScrolledWindow">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
-            <property name="editable">False</property>
-            <property name="wrap-mode">word-char</property>
-            <property name="cursor-visible">False</property>
-            <property name="buffer">key_textbuffer</property>
-            <property name="monospace">True</property>
+            <property name="shadow-type">in</property>
+            <child>
+              <object class="GtkTextView" id="key_textview">
+                <property name="visible">True</property>
+                <property name="can-focus">True</property>
+                <property name="editable">False</property>
+                <property name="wrap-mode">word-char</property>
+                <property name="cursor-visible">False</property>
+                <property name="buffer">key_textbuffer</property>
+                <property name="monospace">True</property>
+              </object>
+            </child>
           </object>
           <packing>
             <property name="resize">True</property>
